@@ -45,14 +45,18 @@ class game {
     }
     knightMove(start,end){
         let x,y;
+        //establish queue 
         let q = [];
         q.push(new Node(start[0],start[1],0))
+        // establish current position
         let tempq;
+        //establish visited boolean
         let visit = this.gameBoard();
         
         visit[start[0]][start[1]] =true;
         while(q.length!=0){
             tempq = q.shift();
+            // if checks to match the ending position
             if (tempq.x == end[0] && tempq.y == end[1]){
                 const path = [];
                 let node = tempq;
@@ -63,7 +67,9 @@ class game {
                 const distance = path.length -1;
                 const message = `You made it in ${distance} move's! Here's your path:\n${path.join('\n')}\n`;
                 return message;
-            }else{
+            }
+            // else establishes an iteration over the current position to find the shortest path;
+            else{
                 const checkMoves = this.moveSet(tempq.x,tempq.y)
                 for(let move of checkMoves) {
                     const newNode = new Node(move.x,move.y,tempq.dist+1,true);
